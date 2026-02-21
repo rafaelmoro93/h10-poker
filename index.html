@@ -12,6 +12,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
   <style>
+    [x-cloak] { display: none !important; }
     :root {
       --gold: #D4AF37;
       --gold-dark: #C9A227;
@@ -58,9 +59,17 @@
       0%, 100% { opacity: 0; transform: scale(0); }
       50% { opacity: 1; transform: scale(1.5); }
     }
+
+    /* Estilos internos do Balão (Modal) */
+    .modal-content h1 { color: #fff; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; }
+    .modal-content h2 { color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
+    .modal-content p { margin-bottom: 15px; color: #a1a1a1; line-height: 1.6; }
+    .modal-content ul { list-style-type: disc; padding-left: 20px; color: #a1a1a1; margin-bottom: 15px; }
+    .modal-content strong { color: #fff; }
+    .modal-alerta { background: rgba(212, 175, 55, 0.1); border-left: 4px solid #D4AF37; padding: 15px; margin: 20px 0; color: #fff; }
   </style>
 </head>
-<body class="bg-black">
+<body class="bg-black" x-data="{ openModal: false, modalType: '' }">
 
   <div class="min-h-screen bg-black">
 
@@ -106,11 +115,12 @@
             Falar no WhatsApp
           </button>
         </div>
+      </div>
 
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-50">
-          <div class="w-6 h-10 border-2 border-[#D4AF37]/30 rounded-full flex justify-center">
-            <div class="w-1.5 h-3 bg-[#D4AF37] rounded-full mt-2 animate-bounce"></div>
-          </div>
+      <!-- Scroll Indicator Corrigido: Posicionado no rodapé da primeira seção -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-50 z-20">
+        <div class="w-6 h-10 border-2 border-[#D4AF37]/30 rounded-full flex justify-center">
+          <div class="w-1.5 h-3 bg-[#D4AF37] rounded-full mt-2 animate-bounce"></div>
         </div>
       </div>
     </section>
@@ -215,7 +225,7 @@
             <div class="relative h-full p-8 rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden">
               <div class="relative mb-6">
                 <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(212,175,55,0.3)] transition-all duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 </div>
               </div>
               <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#D4AF37] transition-colors duration-300">Suporte rápido e humanizado</h3>
@@ -326,9 +336,9 @@
     </section>
 
     <!-- Footer Section -->
-    <footer class="relative py-16 bg-black">
+    <footer class="relative py-16 bg-black" x-data="{ openModal: false, modalType: '' }">
       <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent"></div>
-      <div class="container mx-auto px-6">
+      <div class="container mx-auto px-6 relative z-10">
         <div class="flex flex-col items-center text-center fade-in-up">
           <div class="mb-4">
             <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6997f49c6ebcd32499811f51/6a8b8ed50_Preta.png" alt="H10 Poker Logo" class="w-40 mx-auto object-contain drop-shadow-[0_0_20px_rgba(212,175,55,0.3)]" />
@@ -338,20 +348,70 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             Falar no WhatsApp
           </button>
-          <div class="mt-12 pt-8 border-t border-[#D4AF37]/10 w-full max-w-2xl">
+          <div class="mt-12 pt-8 border-t border-[#D4AF37]/10 w-full max-w-2xl relative z-20">
             <p class="text-gray-600 text-xs leading-relaxed mb-6">
               <span class="text-gray-500 font-semibold">Aviso Legal:</span> O Poker é reconhecido mundialmente como um esporte de habilidade mental. Promovemos o jogo consciente e responsável para fins de entretenimento. É estritamente proibida a participação de menores de 18 anos.
             </p>
-            <div class="flex flex-wrap justify-center gap-4 mb-6">
-              <button class="text-gray-600 hover:text-[#D4AF37] text-xs transition-colors duration-200 underline underline-offset-2">Política de Privacidade</button>
-              <button class="text-gray-600 hover:text-[#D4AF37] text-xs transition-colors duration-200 underline underline-offset-2">Termos de Uso</button>
-              <button class="text-gray-600 hover:text-[#D4AF37] text-xs transition-colors duration-200 underline underline-offset-2">Jogo Responsável</button>
+            <div class="flex flex-wrap justify-center gap-4 mb-6 relative z-30">
+              <button @click="modalType = 'privacidade'; openModal = true" class="text-gray-600 hover:text-[#D4AF37] text-xs transition-colors duration-200 underline underline-offset-2 cursor-pointer">Política de Privacidade</button>
+              <button @click="modalType = 'termos'; openModal = true" class="text-gray-600 hover:text-[#D4AF37] text-xs transition-colors duration-200 underline underline-offset-2 cursor-pointer">Termos de Uso</button>
+              <button @click="modalType = 'responsavel'; openModal = true" class="text-gray-600 hover:text-[#D4AF37] text-xs transition-colors duration-200 underline underline-offset-2 cursor-pointer">Jogo Responsável</button>
             </div>
             <p class="text-gray-700 text-xs">© 2026 H10 Poker. Todos os direitos reservados.</p>
           </div>
         </div>
       </div>
-      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[#D4AF37]/5 blur-[100px]"></div>
+      <!-- Mancha de brilho com pointer-events-none para não bloquear cliques -->
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[#D4AF37]/5 blur-[100px] pointer-events-none"></div>
+
+      <!-- MODAL / BALÃO DE INFORMAÇÕES -->
+      <div x-show="openModal" x-cloak style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" x-transition>
+        <div class="bg-[#0d0d0d] border border-[#D4AF37]/30 p-8 rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-y-auto relative modal-content text-left" @click.away="openModal = false">
+          
+          <div x-show="modalType === 'responsavel'">
+            <h1 style="color: #fff; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Jogo Responsável</h1>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">O Poker deve ser uma forma de entretenimento. O compromisso do <strong>H10 Poker</strong> é com a diversão segura e consciente.</p>
+            <div class="modal-alerta" style="background: rgba(212, 175, 55, 0.1); border-left: 4px solid #D4AF37; padding: 15px; margin: 20px 0; color: #fff;">
+                <strong>Aviso:</strong> Nunca jogue dinheiro que seja destinado a compromissos essenciais (aluguel, comida, saúde).
+            </div>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">Diretrizes de Segurança:</h2>
+            <ul style="list-style-type: disc; padding-left: 20px; color: #a1a1a1; margin-bottom: 15px;">
+                <li>Estabeleça limites de tempo e de valores antes de começar.</li>
+                <li>Não tente recuperar perdas de forma emocional.</li>
+                <li>O Poker é um esporte da mente; jogue quando estiver descansado e lúcido.</li>
+            </ul>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">Ajuda Profissional</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">Se você sentir que o jogo está deixando de ser uma diversão, procure ajuda em organizações como <a href="https://www.begambleaware.org" target="_blank" style="color: #D4AF37; text-decoration: none;">BeGambleAware</a> ou grupos de apoio nacionais.</p>
+          </div>
+
+          <div x-show="modalType === 'termos'">
+            <h1 style="color: #fff; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Termos de Uso</h1>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">1. Natureza do Serviço</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">O H10 Poker atua como intermediário e suporte para jogadores nos aplicativos parceiros (Suprema Poker). Não somos o operador do software, mas sim prestadores de serviço de atendimento.</p>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">2. Idade Mínima</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">Nossos serviços são estritamente destinados a pessoas maiores de 18 anos. Ao prosseguir, o usuário declara ter idade legal para a prática de jogos de habilidade.</p>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">3. Jogo de Habilidade</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">O Poker é reconhecido mundialmente como um esporte de habilidade mental. Os resultados dependem da estratégia e conhecimento do usuário.</p>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">4. Limitação de Responsabilidade</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">O usuário é responsável por suas próprias decisões e gestão de banca. Não garantimos resultados financeiros fixos.</p>
+          </div>
+
+          <div x-show="modalType === 'privacidade'">
+            <h1 style="color: #fff; border-bottom: 2px solid #D4AF37; padding-bottom: 10px; font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Política de Privacidade</h1>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">A sua privacidade é importante para nós. Esta política explica como o <strong>H10 Poker</strong> trata seus dados em conformidade com a LGPD (Lei Geral de Proteção de Dados).</p>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">1. Coleta de Dados</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">Não coletamos dados sensíveis automaticamente, exceto informações de navegação (cookies) para melhorar a performance do site e rastreamento de conversão de anúncios (Pixel).</p>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">2. Uso de Informações</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">As informações coletadas via formulário ou contato direto de WhatsApp são utilizadas exclusivamente para o suporte técnico e intermediação de créditos no Suprema Poker.</p>
+            <h2 style="color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">3. Seus Direitos</h2>
+            <p style="margin-bottom: 15px; color: #a1a1a1;">Você tem direito de solicitar a exclusão de seus dados de nossa base de contatos a qualquer momento via suporte oficial.</p>
+          </div>
+
+          <div class="mt-8 text-right">
+            <button @click="openModal = false" class="bg-[#D4AF37] text-black font-bold px-8 py-2 rounded-full hover:bg-white transition-colors">Fechar</button>
+          </div>
+        </div>
+      </div>
     </footer>
   </div>
 </body>
