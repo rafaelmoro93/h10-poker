@@ -36,6 +36,12 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
+    
+    /* Trava o scroll do fundo sem pular para o topo */
+    body.modal-open {
+      overflow: hidden !important;
+    }
+
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #0a0a0a; }
     ::-webkit-scrollbar-thumb {
@@ -44,10 +50,6 @@
     }
     ::-webkit-scrollbar-thumb:hover {
       background: linear-gradient(to bottom, #C9A227, #B8960F);
-    }
-    ::selection {
-      background: rgba(212, 175, 55, 0.3);
-      color: #ffffff;
     }
     
     .fade-in-up {
@@ -75,16 +77,17 @@
     .modal-content h2 { color: #fff; margin-top: 25px; font-weight: bold; font-size: 1.1rem; margin-bottom: 10px; }
     .modal-content p { margin-bottom: 15px; color: #a1a1a1; line-height: 1.6; }
     .modal-content ul { list-style-type: disc; padding-left: 20px; color: #a1a1a1; margin-bottom: 15px; }
-    .modal-content strong { color: #fff; }
     .modal-alerta { background: rgba(212, 175, 55, 0.1); border-left: 4px solid #D4AF37; padding: 15px; margin: 20px 0; color: #fff; }
-
-    /* Filtro especial para destacar a nova logo */
+    
+    /* Brilho da logo ajustado para ser natural e não estourado */
     .logo-glow {
-      filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3));
+      filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 10px rgba(212, 175, 55, 0.25));
     }
   </style>
 </head>
-<body class="bg-black" x-data="{ openModal: false, modalType: '' }">
+<body class="bg-black" 
+      x-data="{ openModal: false, modalType: '' }"
+      x-init="$watch('openModal', value => { if (value) document.body.classList.add('modal-open'); else document.body.classList.remove('modal-open'); })">
 
   <div class="min-h-screen bg-black">
 
@@ -107,8 +110,7 @@
       <div class="relative z-10 container mx-auto text-center py-12 md:py-0">
         <div class="mb-12 fade-in-up" style="animation-delay: 0.2s;">
           <div class="drop-shadow-[0_0_30px_rgba(212,175,55,0.4)]">
-            <!-- NOVA LOGO TOPO -->
-            <img src="logo.png" alt="H10 Poker Logo" class="w-48 md:w-64 mx-auto object-contain logo-glow" />
+            <img src="logo.png" alt="H10 Poker Logo" class="w-40 md:w-56 mx-auto object-contain logo-glow" />
           </div>
         </div>
 
@@ -160,21 +162,21 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div class="text-center group fade-in-up" style="animation-delay: 0.2s;">
+          <div class="text-center group fade-in-up">
             <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             </div>
             <h3 class="text-xl font-bold text-white mb-3 text-center">Confiança</h3>
             <p class="text-gray-500 leading-relaxed text-center text-sm md:text-base">Anos de experiência e reputação sólida no mercado de poker online.</p>
           </div>
-          <div class="text-center group fade-in-up" style="animation-delay: 0.4s;">
+          <div class="text-center group fade-in-up">
             <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             </div>
             <h3 class="text-xl font-bold text-white mb-3 text-center">Agilidade</h3>
             <p class="text-gray-500 leading-relaxed text-center text-sm md:text-base">Saques via Pix processados em minutos, sem complicação.</p>
           </div>
-          <div class="text-center group fade-in-up" style="animation-delay: 0.6s;">
+          <div class="text-center group fade-in-up">
             <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300">
               <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
             </div>
@@ -203,7 +205,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          <div class="group relative fade-in-up" style="animation-delay: 0.1s;">
+          <div class="group relative fade-in-up">
             <div class="relative h-full p-8 rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden text-center md:text-left">
               <div class="relative mb-6 mx-auto md:mx-0 w-fit">
                 <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
@@ -214,7 +216,7 @@
               <p class="text-gray-500 leading-relaxed text-sm md:text-base">Receba seus ganhos em segundos, direto na sua conta bancária via Pix. Sem espera, sem burocracia.</p>
             </div>
           </div>
-          <div class="group relative fade-in-up" style="animation-delay: 0.2s;">
+          <div class="group relative fade-in-up">
             <div class="relative h-full p-8 rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden text-center md:text-left">
               <div class="relative mb-6 mx-auto md:mx-0 w-fit">
                 <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
@@ -225,7 +227,7 @@
               <p class="text-gray-500 leading-relaxed text-sm md:text-base">Sua segurança é nossa prioridade. Processos transparentes e estrutura sólida para você jogar tranquilo.</p>
             </div>
           </div>
-          <div class="group relative fade-in-up" style="animation-delay: 0.3s;">
+          <div class="group relative fade-in-up">
             <div class="relative h-full p-8 rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden text-center md:text-left">
               <div class="relative mb-6 mx-auto md:mx-0 w-fit">
                 <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
@@ -236,7 +238,7 @@
               <p class="text-gray-500 leading-relaxed text-sm md:text-base">Mesas sempre cheias e ação garantida. Nosso clube está entre os mais ativos do aplicativo.</p>
             </div>
           </div>
-          <div class="group relative fade-in-up" style="animation-delay: 0.4s;">
+          <div class="group relative fade-in-up">
             <div class="relative h-full p-8 rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden text-center md:text-left">
               <div class="relative mb-6 mx-auto md:mx-0 w-fit">
                 <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
@@ -247,7 +249,7 @@
               <p class="text-gray-500 leading-relaxed text-sm md:text-base">Atendimento real e ágil via WhatsApp. Estamos sempre prontos para ajudar você.</p>
             </div>
           </div>
-          <div class="group relative lg:col-span-1 lg:col-start-2 fade-in-up" style="animation-delay: 0.5s;">
+          <div class="group relative lg:col-span-1 lg:col-start-2 fade-in-up">
             <div class="relative h-full p-8 rounded-2xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/10 hover:border-[#D4AF37]/30 transition-all duration-500 overflow-hidden text-center md:text-left">
               <div class="relative mb-6 mx-auto md:mx-0 w-fit">
                 <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
@@ -284,6 +286,33 @@
               <p class="text-base md:text-lg text-gray-400 leading-relaxed mb-8">
                 Quer ganhar dinheiro indicando jogadores ou montando sua própria base dentro do Suprema Poker? No H10 Poker você encontra o <span class="text-white font-medium">melhor acordo do mercado</span>, suporte estratégico e estrutura completa para crescer.
               </p>
+
+              <div class="space-y-4 mb-10 text-left max-w-md mx-auto lg:mx-0">
+                <div class="flex items-center gap-4 group">
+                  <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 7v-2a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path></svg>
+                  </div>
+                  <span class="text-white font-medium text-lg group-hover:text-[#D4AF37] transition-colors duration-300 text-sm md:text-base">Melhor acordo do mercado</span>
+                </div>
+                <div class="flex items-center gap-4 group">
+                  <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M13 17V9"></path><path d="M18 17V5"></path><path d="M8 17v-3"></path></svg>
+                  </div>
+                  <span class="text-white font-medium text-lg group-hover:text-[#D4AF37] transition-colors duration-300 text-sm md:text-base">Estrutura profissional</span>
+                </div>
+                <div class="flex items-center gap-4 group">
+                  <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 17"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                  </div>
+                  <span class="text-white font-medium text-lg group-hover:text-[#D4AF37] transition-colors duration-300 text-sm md:text-base">Crescimento escalável</span>
+                </div>
+                <div class="flex items-center gap-4 group">
+                  <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                  </div>
+                  <span class="text-white font-medium text-lg group-hover:text-[#D4AF37] transition-colors duration-300 text-sm md:text-base">Parceria sólida e transparente</span>
+                </div>
+              </div>
 
               <button class="w-full sm:w-auto bg-gradient-to-r from-[#D4AF37] to-[#C9A227] hover:brightness-110 text-black font-bold px-10 py-5 md:py-7 text-lg rounded-full shadow-[0_0_40px_rgba(212,175,55,0.4)] transition-all duration-300 group flex items-center justify-center mx-auto lg:mx-0" onclick="window.open('https://wa.me/5500000000000', '_blank')">
                 Quero Ser Agente H10
@@ -327,8 +356,7 @@
       <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/30 to-transparent"></div>
       <div class="container mx-auto px-6 relative z-10">
         <div class="flex flex-col items-center text-center fade-in-up">
-          <!-- LOGO RODAPÉ: Efeito aplicado -->
-          <div class="mb-8 drop-shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+          <div class="mb-8">
             <img src="logo.png" alt="H10 Poker Logo" class="w-32 md:w-40 mx-auto object-contain logo-glow" />
           </div>
           <p class="text-gray-500 mb-8 text-sm md:text-base">Clube atuante no aplicativo Suprema Poker.</p>
@@ -341,9 +369,9 @@
               <span class="text-gray-500 font-semibold">Aviso Legal:</span> O Poker é reconhecido mundialmente como um esporte de habilidade mental. Promovemos o jogo consciente e responsável para fins de entretenimento. É estritamente proibida a participação de menores de 18 anos.
             </p>
             <div class="flex flex-wrap justify-center gap-4 md:gap-6 mb-8 relative z-30">
-              <button @click="modalType = 'privacidade'; openModal = true" class="text-gray-500 hover:text-[#D4AF37] text-[11px] md:text-xs underline underline-offset-4 decoration-[#D4AF37]/30 transition-colors cursor-pointer">Política de Privacidade</button>
-              <button @click="modalType = 'termos'; openModal = true" class="text-gray-500 hover:text-[#D4AF37] text-[11px] md:text-xs underline underline-offset-4 decoration-[#D4AF37]/30 transition-colors cursor-pointer">Termos de Uso</button>
-              <button @click="modalType = 'responsavel'; openModal = true" class="text-gray-500 hover:text-[#D4AF37] text-[11px] md:text-xs underline underline-offset-4 decoration-[#D4AF37]/30 transition-colors cursor-pointer">Jogo Responsável</button>
+              <button @click.prevent="modalType = 'privacidade'; openModal = true" class="text-gray-500 hover:text-[#D4AF37] text-[11px] md:text-xs underline underline-offset-4 decoration-[#D4AF37]/30 transition-colors cursor-pointer">Política de Privacidade</button>
+              <button @click.prevent="modalType = 'termos'; openModal = true" class="text-gray-500 hover:text-[#D4AF37] text-[11px] md:text-xs underline underline-offset-4 decoration-[#D4AF37]/30 transition-colors cursor-pointer">Termos de Uso</button>
+              <button @click.prevent="modalType = 'responsavel'; openModal = true" class="text-gray-500 hover:text-[#D4AF37] text-[11px] md:text-xs underline underline-offset-4 decoration-[#D4AF37]/30 transition-colors cursor-pointer">Jogo Responsável</button>
             </div>
             <p class="text-gray-700 text-[10px] md:text-xs text-center">© 2026 H10 Poker. Todos os direitos reservados.</p>
           </div>
@@ -395,7 +423,7 @@
           </div>
 
           <div class="mt-8 text-center md:text-right">
-            <button @click="openModal = false" class="bg-[#D4AF37] text-black font-bold px-8 py-3 rounded-full hover:bg-white transition-all w-full md:w-auto">FECHAR</button>
+            <button @click="openModal = false" class="bg-[#D4AF37] text-black font-bold px-8 py-2 rounded-full hover:bg-white transition-all w-full md:w-auto">FECHAR</button>
           </div>
         </div>
       </div>
