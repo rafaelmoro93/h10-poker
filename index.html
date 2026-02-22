@@ -325,34 +325,41 @@
               </button>
             </div>
 
-            <!-- Card 3D Calibrado para Mobile -->
+	<!-- Card 3D Calibrado para Mobile -->
             <div class="fade-in-up mt-12 lg:mt-0" style="animation-delay: 0.2s;">
               <div class="relative w-full aspect-square max-w-md mx-auto h-[400px] md:h-auto">
+                <!-- Camadas de Fundo (Sombras/Bordas) -->
                 <div class="absolute inset-2 md:inset-4 rounded-3xl bg-gradient-to-br from-[#D4AF37]/20 to-[#D4AF37]/5 border border-[#D4AF37]/20 rotate-3"></div>
                 <div class="absolute inset-4 md:inset-8 rounded-3xl bg-gradient-to-br from-[#D4AF37]/15 to-transparent border border-[#D4AF37]/15 -rotate-3"></div>
                 
-                <div class="absolute inset-4 md:inset-12 rounded-3xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/30 shadow-[0_0_60px_rgba(212,175,55,0.2)] flex flex-col items-center justify-center p-6 md:p-8 text-center">
-                  <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#C9A227] flex items-center justify-center mb-4 md:mb-6 shadow-[0_0_40px_rgba(212,175,55,0.5)]">
-                    <svg viewBox="0 0 24 24" class="w-8 h-8 md:w-10 md:h-10 text-black" fill="currentColor"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
+                <!-- Conteúdo Principal do Card -->
+                <div class="absolute inset-6 md:inset-12 rounded-3xl bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-[#D4AF37]/30 shadow-[0_0_60px_rgba(212,175,55,0.2)] flex flex-col items-center justify-center p-4 md:p-8 text-center">
+                  
+                  <!-- Círculo do Agente -->
+                  <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-[#D4AF37]/50 bg-[#0d0d0d] flex-shrink-0 flex items-center justify-center mb-4 md:mb-6 shadow-[0_0_20px_rgba(212,175,55,0.3)] overflow-hidden relative">
+                    <img src="agente-h10.png" alt="Agente H10" class="absolute inset-0 w-full h-full object-cover object-top scale-125" />
                   </div>
-                  <h3 class="text-xl md:text-2xl font-bold text-white mb-2 uppercase tracking-widest">Torne-se</h3>
-                  <p class="text-[#D4AF37] text-lg md:text-xl font-bold uppercase tracking-widest">Agente H10</p>
-                  <div class="mt-6 md:mt-8 grid grid-cols-2 gap-4 md:gap-4 w-full">
+
+                  <!-- Textos corrigidos: Removido o tracking-widest para o espaçamento ficar normal -->
+                  <h3 class="text-xl md:text-2xl font-bold text-white mb-2">Torne-se</h3>
+                  <p class="text-[#D4AF37] text-lg md:text-xl font-bold">Agente H10</p>
+                  
+                  <!-- Estatísticas (10 Anos / 24h) -->
+                  <div class="mt-6 md:mt-8 grid grid-cols-2 gap-4 w-full px-2">
                     <div class="text-center p-3 rounded-xl bg-[#D4AF37]/10">
                       <p class="text-[#D4AF37] text-lg md:text-2xl font-bold leading-tight">10 Anos</p>
                       <p class="text-gray-500 text-[10px] md:text-xs">No Mercado</p>
                     </div>
                     <div class="text-center p-3 rounded-xl bg-[#D4AF37]/10">
-                      <p class="text-[#D4AF37] text-lg md:text-2xl font-bold">24h</p>
+                      <p class="text-[#D4AF37] text-lg md:text-2xl font-bold leading-tight">24h</p>
                       <p class="text-gray-500 text-[10px] md:text-xs">Suporte</p>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+
       <div class="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent"></div>
     </section>
 
@@ -436,4 +443,3 @@
   </div>
 </body>
 </html>
-
