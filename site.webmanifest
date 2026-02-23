@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "H10 Poker",
+  "short_name": "H10 Poker",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
